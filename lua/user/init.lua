@@ -21,7 +21,7 @@ local config = {
   -- Override highlight groups in any theme
   highlights = {
     -- duskfox = { -- a table of overrides
-    --   Normal = { bg = "#000000" },
+    -- Normal = { bg = "#000000" },
     -- },
     default_theme = function(highlights) -- or a function that returns one
       local C = require "default_theme.colors"
@@ -70,7 +70,9 @@ local config = {
     diagnostics_style = { italic = true },
     -- Modify the color table
     colors = {
-      fg = "#abb2bf",
+      fg = "#abb2bf", -- original
+      -- fg = "#ffffff",
+      bg = "#000000",
     },
     plugins = { -- enable or disable extra plugin highlighting
       aerial = true,
@@ -259,7 +261,7 @@ local config = {
       ["<leader>br"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close right-side" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       -- quick save
-      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description
+      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
     t = {
       -- setting a mapping to false will disable it
@@ -270,7 +272,11 @@ local config = {
   -- This function is run last
   -- good place to configuring augroups/autocommands and custom filetypes
   polish = function()
-    -- Set key binding
+    -- local map = vim.api.nvim_set_keymap
+    local unmap = vim.api.nvim_del_keymap
+    -- Set/Unset key binding
+    unmap("n", "H")  -- retain (n)vim feature
+    unmap("n", "L")  -- retain (n)vim feature
     -- Set autocommands
     vim.api.nvim_create_augroup("packer_conf", { clear = true })
     vim.api.nvim_create_autocmd("BufWritePost", {
