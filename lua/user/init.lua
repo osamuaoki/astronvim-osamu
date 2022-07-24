@@ -42,6 +42,7 @@ local config = {
     g = {
       mapleader = " ", -- sets vim.g.mapleader
       cmp_enabled = false, -- enable toggle_completion
+      -- no way to disable autopairs at start
     },
   },
 
@@ -163,21 +164,6 @@ local config = {
     },
   },
 
-  -- Modify which-key registration
-  ["which-key"] = {
-    -- Add bindings
-    register_mappings = {
-      -- first key is the mode, n == normal mode
-      n = {
-        -- second key is the prefix, <leader> prefixes
-        ["<leader>"] = {
-          -- which-key registration table for normal mode, leader prefix
-          -- ["N"] = { "<cmd>tabnew<cr>", "New Buffer" },
-        },
-      },
-    },
-  },
-
   -- CMP Source Priorities
   -- modify here the priorities of default cmp sources
   -- higher value == higher priority
@@ -237,14 +223,43 @@ local config = {
     underline = true,
   },
 
+  -- Modify which-key registration
+  ["which-key"] = {
+    -- Add bindings which show up as group
+    register_mappings = {
+      -- first key is the mode, n == normal mode
+      n = {
+        -- second key is the prefix, <leader> prefixes
+        ["<leader>"] = {
+          ["b"] = { name = "Buffer" },
+        },
+      },
+    },
+  },
+
   mappings = {
     -- first key is the mode
     n = {
       -- second key is the lefthand side of the map
       -- Disk siz w/o snapshot btrfs subvolumes and .git
-      ["<leader>tu"] = { function() astronvim.toggle_term_cmd "ncdu -x --exclude \".git\"" end, desc = "ToggleTerm NCDU w/o .git and w/single-FS" },
+      ["<leader>tu"] = { function() astronvim.toggle_term_cmd "ncdu -x --exclude .git" end, desc = "ToggleTerm NCDU w/o junks" },
+      -- File explorer for . and ~
       ["<leader>tm"] = { function() astronvim.toggle_term_cmd "mc . ~" end, desc = "ToggleTerm MC" },
-      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
+      -- BUffer
+      ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+      ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
+      ["<leader>bd"] = { "<cmd>BufferLineSortByDirectory<cr>", desc = "Sort by directory" },
+      ["<leader>bD"] = { "<cmd>BufferLineSortByRelativeDirectory<cr>", desc = "Sort by rel. dir." },
+      ["<leader>be"] = { "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by extention" },
+      ["<leader>bf"] = { "<cmd>Telescope buffers<cr>", desc = "Find" },
+      ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
+      ["<leader>bl"] = { "<cmd>BufferLineCloseLeft<cr>", desc = "Close left-side" },
+      ["<leader>bn"] = { "<cmd>BufferLineCycleNext<cr>", desc = "Next" },
+      ["<leader>bp"] = { "<cmd>BufferLineCyclePrev<cr>", desc = "Previous" },
+      ["<leader>br"] = { "<cmd>BufferLineCloseRight<cr>", desc = "Close right-side" },
+      ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+      -- quick save
+      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description
     },
     t = {
       -- setting a mapping to false will disable it
