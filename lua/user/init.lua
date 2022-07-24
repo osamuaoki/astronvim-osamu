@@ -21,7 +21,7 @@ local config = {
   -- Override highlight groups in any theme
   highlights = {
     -- duskfox = { -- a table of overrides
-    -- Normal = { bg = "#000000" },
+    --   Normal = { bg = "#000000" },
     -- },
     default_theme = function(highlights) -- or a function that returns one
       local C = require "default_theme.colors"
@@ -243,10 +243,14 @@ local config = {
     -- first key is the mode
     n = {
       -- second key is the lefthand side of the map
+      -- Terminal
+      -- Install ncdu package:w:w
       -- Disk siz w/o snapshot btrfs subvolumes and .git
-      ["<leader>tu"] = { function() astronvim.toggle_term_cmd "ncdu -x --exclude .git" end, desc = "ToggleTerm NCDU w/o junks" },
-      -- File explorer for . and ~
-      ["<leader>tm"] = { function() astronvim.toggle_term_cmd "mc . ~" end, desc = "ToggleTerm MC" },
+      ["<leader>tu"] = { function() astronvim.toggle_term_cmd "ncdu -x --exclude .git" end, desc = "Term for NCDU w/o junks" },
+      -- Install mc package
+      ["<leader>tm"] = { function() astronvim.toggle_term_cmd "mc . ~" end, desc = "Term for MC" },
+      -- Install libreply-perl + libterm-readline-gnu-perl packages
+      ["<leader>tp"] = { function() astronvim.toggle_term_cmd "reply" end, desc = "Term for perl5 REPL" },
       -- BUffer
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
       ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
@@ -273,10 +277,12 @@ local config = {
   -- good place to configuring augroups/autocommands and custom filetypes
   polish = function()
     -- local map = vim.api.nvim_set_keymap
-    local unmap = vim.api.nvim_del_keymap
     -- Set/Unset key binding
-    unmap("n", "H")  -- retain (n)vim feature
-    unmap("n", "L")  -- retain (n)vim feature
+    --
+    -- To regain the original (n)vim feature, unmap is a possibility 
+    -- local unmap = vim.api.nvim_del_keymap
+    -- unmap("n", "H")  -- bound to buffer navi. to left
+    -- unmap("n", "L")  -- bound to buffer navi. to right
     -- Set autocommands
     vim.api.nvim_create_augroup("packer_conf", { clear = true })
     vim.api.nvim_create_autocmd("BufWritePost", {
