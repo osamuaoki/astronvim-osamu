@@ -109,6 +109,8 @@ local config = {
 
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
+      -- Smooth scrolling
+      ["declancm/cinnamon.nvim"] = { disable = true },
 
       -- You can also add new plugins here as well:
       -- { "andweeb/presence.nvim" },
@@ -234,6 +236,7 @@ local config = {
         -- second key is the prefix, <leader> prefixes
         ["<leader>"] = {
           ["b"] = { name = "Buffer" },
+          -- ["<C-w>"] = { "<cmd>tabnew<cr>", "New tab" }, -- no desc nor name here
         },
       },
     },
@@ -244,7 +247,7 @@ local config = {
     n = {
       -- second key is the lefthand side of the map
       -- Terminal
-      -- Install ncdu package:w:w
+      -- Install ncdu package
       -- Disk siz w/o snapshot btrfs subvolumes and .git
       ["<leader>tu"] = { function() astronvim.toggle_term_cmd "ncdu -x --exclude .git" end, desc = "Term for NCDU w/o junks" },
       -- Install mc package
